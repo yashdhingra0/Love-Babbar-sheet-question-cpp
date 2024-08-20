@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Function to convert an adjacency matrix to an adjacency list
+vector<vector<int>> adjMatrixToAdjList(int V, vector<vector<int>>& adjMatrix) {
+    vector<vector<int>> adjList(V);  // Initialize a V-sized list of vectors
+
+    for (int u = 0; u < V; ++u) {
+        for (int v = 0; v < V; ++v) {
+            if (adjMatrix[u][v] == 1) {  // If there's an edge between u and v
+                adjList[u].push_back(v);  // Add v to u's list of neighbors
+            }
+        }
+    }
+
+    return adjList;
+}
+
+int main() {
+    int V = 5;
+    vector<vector<int>> adjMatrix = {
+        {0, 1, 1, 0, 0},
+        {1, 0, 0, 1, 1},
+        {1, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0},
+        {0, 1, 0, 0, 0}
+    };
+
+    vector<vector<int>> adjList = adjMatrixToAdjList(V, adjMatrix);
+
+    // Output the adjacency list
+    for (int u = 0; u < V; ++u) {
+        cout << u << ": ";
+        for (int v : adjList[u]) {
+            cout << v << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
