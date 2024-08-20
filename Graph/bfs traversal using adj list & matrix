@@ -1,0 +1,61 @@
+----------->using adj list<----------------------------------------
+
+class Solution {
+  public:
+    // Function to return Breadth First Traversal of given graph.
+    vector<int> bfsOfGraph(int V, vector<int> adj[]) {
+        // Code here
+         vector<int> ans;
+        vector<bool> visited(V);
+        queue<int> q;
+        q.push(0);
+        while(!q.empty()) {
+            int u = q.front();
+            q.pop();
+           visited[u] = true;
+            ans.push_back(u);
+            for(auto v:adj[u]) {
+                if(!visited[v]) {
+                    q.push(v);
+                    visited[v] = true;
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+----------------------------->using adj matrix<------------------------------------------------------------
+class Solution {
+  public:
+    // Function to return Breadth First Traversal of the given graph.
+    vector<int> bfsOfGraph(int V, vector<vector<int>>& adjMatrix) {
+        vector<int> ans;  // To store the BFS traversal result
+        vector<bool> visited(V, false);  // To keep track of visited nodes
+        queue<int> q;  // Queue for BFS
+
+        // Start BFS from the first node (node 0)
+        q.push(0);
+        visited[0] = true;
+
+        while (!q.empty()) {
+            int u = q.front();  // Get the front node from the queue
+            q.pop();
+            ans.push_back(u);  // Add it to the result
+
+            // Visit all the adjacent vertices of u
+            for (int v = 0; v < V; ++v) {
+                if (adjMatrix[u][v] == 1 && !visited[v]) {  // Check if there's an edge and if v is not visited
+                    q.push(v);  // Push the adjacent vertex into the queue
+                    visited[v] = true;  // Mark it as visited
+                }
+            }
+        }
+
+        return ans;  // Return the BFS traversal
+    }
+};
+
+
+
+
