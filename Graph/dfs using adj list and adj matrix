@@ -1,0 +1,104 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Solution {
+  public:
+    // Function to perform DFS traversal of the graph
+    void dfsUtil(int u, vector<int> adj[], vector<bool>& visited, vector<int>& ans) {
+        visited[u] = true;  // Mark the current node as visited
+        ans.push_back(u);  // Add it to the DFS traversal result
+
+        for (int v : adj[u]) {  // Recur for all adjacent vertices
+            if (!visited[v]) {
+                dfsUtil(v, adj, visited, ans);
+            }
+        }
+    }
+
+    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+        vector<int> ans;  // To store the DFS traversal result
+        vector<bool> visited(V, false);  // To keep track of visited nodes
+
+        // Start DFS from the first node (node 0)
+        dfsUtil(0, adj, visited, ans);
+
+        return ans;
+    }
+};
+
+int main() {
+    int V = 5;
+    vector<int> adjList[] = {
+        {1, 2},      // Edges from vertex 0
+        {0, 3, 4},   // Edges from vertex 1
+        {0},         // Edges from vertex 2
+        {1},         // Edges from vertex 3
+        {1}          // Edges from vertex 4
+    };
+
+    Solution sol;
+    vector<int> dfsTraversal = sol.dfsOfGraph(V, adjList);
+
+    // Output the DFS traversal
+    for (int node : dfsTraversal) {
+        cout << node << " ";
+    }
+
+    return 0;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Solution {
+  public:
+    // Function to perform DFS traversal of the graph using an adjacency matrix
+    void dfsUtil(int u, vector<vector<int>>& adjMatrix, vector<bool>& visited, vector<int>& ans) {
+        visited[u] = true;  // Mark the current node as visited
+        ans.push_back(u);  // Add it to the DFS traversal result
+
+        for (int v = 0; v < adjMatrix.size(); ++v) {  // Recur for all adjacent vertices
+            if (adjMatrix[u][v] == 1 && !visited[v]) {
+                dfsUtil(v, adjMatrix, visited, ans);
+            }
+        }
+    }
+
+    vector<int> dfsOfGraph(int V, vector<vector<int>>& adjMatrix) {
+        vector<int> ans;  // To store the DFS traversal result
+        vector<bool> visited(V, false);  // To keep track of visited nodes
+
+        // Start DFS from the first node (node 0)
+        dfsUtil(0, adjMatrix, visited, ans);
+
+        return ans;
+    }
+};
+
+int main() {
+    int V = 5;
+    vector<vector<int>> adjMatrix = {
+        {0, 1, 1, 0, 0},
+        {1, 0, 0, 1, 1},
+        {1, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0},
+        {0, 1, 0, 0, 0}
+    };
+
+    Solution sol;
+    vector<int> dfsTraversal = sol.dfsOfGraph(V, adjMatrix);
+
+    // Output the DFS traversal
+    for (int node : dfsTraversal) {
+        cout << node << " ";
+    }
+
+    return 0;
+}
