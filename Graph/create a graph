@@ -1,0 +1,106 @@
+---------------------------------------------------------------->for undirected Graph suing adjanceny matrix  we can create a graph like this <----------------------------------------------------------------------------------
+An adjacency matrix is a 2D array (or vector in C++) where the element at the intersection of row i and column j represents the edge between vertices i and j.
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class GraphMatrix {
+private:
+    int numVertices;
+    vector<vector<int>> adjMatrix;
+
+public:
+    GraphMatrix(int vertices) : numVertices(vertices) {   --> here constructor is giving vertices to class variable so that class will get to know about how many verrices graph has 
+        adjMatrix.resize(vertices, vector<int>(vertices, 0));
+    }
+
+    void addEdge(int i, int j) {
+        adjMatrix[i][j] = 1;
+        adjMatrix[j][i] = 1; // For undirected graph
+    }
+
+    void removeEdge(int i, int j) {
+        adjMatrix[i][j] = 0;
+        adjMatrix[j][i] = 0;
+    }
+
+    void display() {
+        for (int i = 0; i < numVertices; ++i) {
+            for (int j = 0; j < numVertices; ++j) {
+                cout << adjMatrix[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
+};
+
+int main() {
+    GraphMatrix g(5);
+
+    g.addEdge(0, 1);
+    g.addEdge(0, 4);
+    g.addEdge(1, 2);
+    g.addEdge(1, 3);
+    g.addEdge(1, 4);
+    g.addEdge(2, 3);
+    g.addEdge(3, 4);
+
+    g.display();
+
+    return 0;
+}
+
+
+---------------------------------------------------------------->for undirected Graph using adjaceny list we can create a graph like this <----------------------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class GraphList {
+private:
+    int numVertices;
+    vector<vector<int>> adjList;
+
+public:
+    GraphList(int vertices) : numVertices(vertices) {
+        adjList.resize(vertices);
+    }
+
+    void addEdge(int i, int j) {
+        adjList[i].push_back(j);
+        adjList[j].push_back(i); // For undirected graph
+    }
+
+    void display() {
+        for (int i = 0; i < numVertices; ++i) {
+            cout << i << ": ";
+            for (int j : adjList[i]) {
+                cout << j << " ";
+            }
+            cout << endl;
+        }
+    }
+};
+
+int main() {
+    GraphList g(5);
+
+    g.addEdge(0, 1);
+    g.addEdge(0, 4);
+    g.addEdge(1, 2);
+    g.addEdge(1, 3);
+    g.addEdge(1, 4);
+    g.addEdge(2, 3);
+    g.addEdge(3, 4);
+
+    g.display();
+
+    return 0;
+}
+
+
+summary 
+An adjacency list is a collection of lists or vectors, where the index of the list represents a vertex, and the list at that index contains the vertices that are adjacent to that vertex.
+
